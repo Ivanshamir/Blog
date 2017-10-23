@@ -1,0 +1,40 @@
+
+<div class="sidebar clear">
+			<div class="samesidebar clear">
+			
+				<h2>Categories</h2>
+					<ul>
+					<?php 
+						$query = "SELECT * FROM tbl_category ";
+						$post = $db->selectDb($query);
+						if ($post) {
+							while ($result = $post->fetch_assoc()) {
+					?>
+						<li><a href="posts.php?category=<?php echo $result['id']; ?>"><?php echo $result['name']; ?></a></li>
+					<?php } } else{ ?>
+						<li><p>No Category Available</p></li>
+					<?php  } ?>						
+					</ul>
+			</div>
+			
+			<div class="samesidebar clear">
+				<h2>Latest articles</h2>
+				<?php 
+					$query = "SELECT * FROM tbl_post LIMIT 5";
+					$post = $db->selectDb($query);
+					if ($post) {
+						while ($result = $post->fetch_assoc()) {
+				?>
+					<div class="popular clear">
+						<h3><a href="post.php?id=<?php echo $result['id']; ?>"><?php echo $result['title']; ?></a></h3>
+						<a href="#"><img src="admin/<?php echo $result['image']; ?>" alt="post image"/></a>
+						<?php echo $fm->textShorten($result['body'], 125); ?>	
+					</div>
+					
+<?php } ?>						
+<?php  } else{
+		 echo "No latest articles Found";
+	}?>	
+			</div>
+			
+</div>
